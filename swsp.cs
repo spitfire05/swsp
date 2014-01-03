@@ -52,7 +52,7 @@ namespace swsp
                 cmdIdx[1] = cmdGroup.AddCommandItem2(t, -1, "", t, 1, "U_ProfileSketch", "", 1, (int)swCommandItemType_e.swToolbarItem);
                 //t = "U-profile with flange sketch";
                 //cmdIdx[2] = cmdGroup.AddCommandItem2(t, -1, "", t, 2, "U_ProfileFlangeSketch", "", 2, (int)swCommandItemType_e.swToolbarItem);
-                t = "T-profile (closed)";
+                t = "T-profile sketch (closed)";
                 cmdIdx[3] = cmdGroup.AddCommandItem2(t, -1, "", t, 3, "T_ProfileClosedSketch", "", 3, (int)swCommandItemType_e.swToolbarItem);
                 cmdGroup.HasToolbar = true;
                 cmdGroup.HasMenu = false;
