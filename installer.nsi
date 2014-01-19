@@ -67,6 +67,8 @@ Section "Install"
   File "bin\Release\SolidWorks.Interop.sldworks.dll"
   File "bin\Release\SolidWorks.Interop.swconst.dll"
   File "bin\Release\SolidWorks.Interop.swpublished.dll"
+  File "readme.txt"
+  File "changelog.txt"
   CreateDirectory $INSTDIR\icons
   File /oname=icons\icons_16.png "bin\Release\icons\icons_16.png"
   
@@ -115,6 +117,8 @@ Section "Uninstall"
   Delete "$INSTDIR\SolidWorks.Interop.sldworks.dll"
   Delete "$INSTDIR\SolidWorks.Interop.swconst.dll"
   Delete "$INSTDIR\SolidWorks.Interop.swpublished.dll"
+  Delete "$INSTDIR\readme.txt"
+  Delete "$INSTDIR\changelog.txt"
   Delete "$INSTDIR\icons\icons_16.png"
   Delete $INSTDIR\uninstall.exe
 
