@@ -1,3 +1,7 @@
+1.0.1
+=====
+- Fix bug causing the addin to silently fail to register with SolidWorks.
+
 1.0.0
 =====
 - Initial release. Can draw L, U and T (closed) profile sketches.

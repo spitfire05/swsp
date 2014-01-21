@@ -3,14 +3,14 @@
 !include MUI2.nsh
 
 !define PROGNAME "swsp"
-!define VERSION "1.0.0"
+!define VERSION "1.0.1"
 
 ;--------------------------------
 
 ; The name of the installer
 Name "SolidWorks Standard Primitives ${VERSION}"
 
-OutFile "bin/Release/swsp.exe"
+OutFile "${PROGNAME}-${VERSION}.exe"
 
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)

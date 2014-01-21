@@ -11,21 +11,8 @@ namespace swsp
 {
     public class SWIntegration : ISwAddin
     {
-        public int VERSION_MAJOR;
-        public int VERSION_MINOR;
-        public int VERSION_PATCH;
-
         public SldWorks swApp;
         private int swCookie;
-
-        SWIntegration()
-        {
-            // set version info, the old-fashioned way
-            this.VERSION_MAJOR = 1;
-            this.VERSION_MINOR = 0;
-            this.VERSION_PATCH = 0;
-            Assembly.GetExecutingAssembly().GetName().Version = new Version(this.VERSION_MAJOR, this.VERSION_MINOR, this.VERSION_PATCH);
-        }
 
         public bool ConnectToSW(object ThisSW, int Cookie)
         {

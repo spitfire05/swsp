@@ -1,3 +1,3 @@
 USAGE:
 After installation a tab labeled "Standard Primitives"
-should apear in the Command Manager.
+should apear in the Command Manager, while in the part mode.
