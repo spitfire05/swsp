@@ -10,7 +10,7 @@
 ; The name of the installer
 Name "SolidWorks Standard Primitives ${VERSION}"
 
-OutFile "${PROGNAME}-${VERSION}.exe"
+OutFile "${PROGNAME}-install-${VERSION}.exe"
 
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)
