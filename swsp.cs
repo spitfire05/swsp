@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swpublished;
 using SolidWorks.Interop.swconst;
+using SolidWorks.Interop.swpublished;
 
 namespace swsp
 {
@@ -32,7 +33,13 @@ namespace swsp
         {
             try
             {
+                // Clean up first
                 this.UITeardown();
+
+                // Set current UI locale to user settings, not windows language version
+                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+                // Build the UI
                 Assembly thisAssembly = System.Reflection.Assembly.GetAssembly(this.GetType());
                 CommandManager iCmdMgr = swApp.GetCommandManager(swCookie);
                 ICommandGroup cmdGroup = default(ICommandGroup);
@@ -46,14 +53,14 @@ namespace swsp
                 // we store index of every button to use later
                 int[] cmdIdx = new int[4];
                 string t;
-                t = "L-profile sketch";
+                t = locale.LProfileSketch;
                 cmdIdx[0] = cmdGroup.AddCommandItem2(t, -1, "", t, 0, "L_ProfileSketch", "", 0, (int)swCommandItemType_e.swToolbarItem);
-                t = "U-profile sketch";
+                t = locale.UProfileSketch;
                 cmdIdx[1] = cmdGroup.AddCommandItem2(t, -1, "", t, 1, "U_ProfileSketch", "", 1, (int)swCommandItemType_e.swToolbarItem);
-                //t = "U-profile with flange sketch";
-                //cmdIdx[2] = cmdGroup.AddCommandItem2(t, -1, "", t, 2, "U_ProfileFlangeSketch", "", 2, (int)swCommandItemType_e.swToolbarItem);
-                t = "T-profile sketch (closed)";
-                cmdIdx[3] = cmdGroup.AddCommandItem2(t, -1, "", t, 3, "T_ProfileClosedSketch", "", 3, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.TProfileSketchClosed;
+                cmdIdx[2] = cmdGroup.AddCommandItem2(t, -1, "", t, 3, "T_ProfileClosedSketch", "", 2, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.HexagonSketch;
+                cmdIdx[3] = cmdGroup.AddCommandItem2(t, -1, "", t, 4, "HexagonSketch", "", 3, (int)swCommandItemType_e.swToolbarItem);
                 cmdGroup.HasToolbar = true;
                 cmdGroup.HasMenu = false;
                 cmdGroup.Activate();
@@ -62,21 +69,20 @@ namespace swsp
                     CommandTab cmdTab = iCmdMgr.AddCommandTab(docType, Title);
                     // Group 1
                     CommandTabBox cmdBox1 = cmdTab.AddCommandTabBox();
-                    int[] cmdIDs1 = new int[3];
-                    int[] TextType1 = new int[3];
-
+                    int[] cmdIDs1 = new int[2];
+                    int[] TextType1 = new int[2];
                     cmdIDs1[0] = cmdGroup.get_CommandID(cmdIdx[0]);
                     TextType1[0] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     cmdIDs1[1] = cmdGroup.get_CommandID(cmdIdx[1]);
                     TextType1[1] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
-                    //cmdIDs1[2] = cmdGroup.get_CommandID(cmdIdx[2]);
-                    //TextType1[2] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     // Group 2
                     CommandTabBox cmdBox2 = cmdTab.AddCommandTabBox();
-                    int[] cmdIDs2 = new int[1];
-                    int[] TextType2 = new int[1];
-                    cmdIDs2[0] = cmdGroup.get_CommandID(cmdIdx[3]);
+                    int[] cmdIDs2 = new int[2];
+                    int[] TextType2 = new int[2];
+                    cmdIDs2[0] = cmdGroup.get_CommandID(cmdIdx[2]);
                     TextType2[0] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    cmdIDs2[1] = cmdGroup.get_CommandID(cmdIdx[3]);
+                    TextType2[1] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     // Add the commands
                     cmdBox1.AddCommands(cmdIDs1, TextType1);
                     cmdBox2.AddCommands(cmdIDs2, TextType2);
@@ -251,6 +257,39 @@ namespace swsp
             swDoc.AddDimension2(0.0, 0.11, 0.0);
             // Exit sketch
             swDoc.ClearSelection2(true);
+            swDoc.SketchManager.InsertSketch(true);
+        }
+
+        public void HexagonSketch()
+        {
+            ModelDoc2 swDoc = (ModelDoc2)swApp.ActiveDoc;
+            // Create sketch
+            swDoc.SketchManager.InsertSketch(false);
+            object[] hexagon;
+            hexagon = (object[])swDoc.SketchManager.CreatePolygon(0.0, 0.0, 0.0, 0.0, 0.05, 0.0, 6, true);
+            swDoc.ClearSelection2(true);
+            foreach (object x in hexagon)
+            {
+                // select one line and make it horizontal
+                SketchSegment y = (SketchSegment)x;
+                if (y.GetType() == (int)swSketchSegments_e.swSketchLINE)
+                {
+                    y.Select4(false, null);
+                    swDoc.SketchAddConstraints("sgHORIZONTAL2D");
+                    break;
+                }
+            }
+            foreach (object x in hexagon)
+            {
+                // select the circle and add dimension to it
+                SketchSegment y = (SketchSegment)x;
+                if (y.GetType() == (int)swSketchSegments_e.swSketchARC)
+                {
+                    y.Select4(false, null);
+                    swDoc.AddDimension2(-0.075, 0.075, 0.0);
+                    break;
+                }
+            }
             swDoc.SketchManager.InsertSketch(true);
         }
 

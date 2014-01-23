@@ -10,7 +10,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="64"
+   width="96"
    height="16"
    id="svg2"
    version="1.1"
@@ -45,8 +45,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="29.458333"
-     inkscape:cx="46.749771"
-     inkscape:cy="13.35785"
+     inkscape:cx="72.785423"
+     inkscape:cy="12"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -71,7 +71,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -226,5 +226,31 @@
          id="rect3030"
          style="fill:#0000ff;fill-opacity:1;stroke:none" />
     </g>
+    <path
+       sodipodi:type="star"
+       style="fill:none;stroke:#0000ff;stroke-width:1.31420608;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3820"
+       sodipodi:sides="6"
+       sodipodi:cx="72"
+       sodipodi:cy="7"
+       sodipodi:r1="5"
+       sodipodi:r2="4.3301268"
+       sodipodi:arg1="1.0471976"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 74.5,11.330127 -5,0 -2.5,-4.3301272 2.5,-4.3301269 5,2e-7 2.5,4.3301271 z"
+       transform="matrix(1.1457846,0,0,1.1369794,-10.157027,1035.8786)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#0000ff;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3822"
+       sodipodi:cx="91.5"
+       sodipodi:cy="11.5"
+       sodipodi:rx="5.1392999"
+       sodipodi:ry="5.1392999"
+       d="m 96.6393,11.5 c 0,2.838357 -2.300943,5.1393 -5.1393,5.1393 -2.838357,0 -5.1393,-2.300943 -5.1393,-5.1393 0,-2.8383569 2.300943,-5.1392999 5.1393,-5.1392999 2.838357,0 5.1393,2.300943 5.1393,5.1392999 z"
+       transform="translate(-3.5643565,1032.8657)" />
   </g>
 </svg>
