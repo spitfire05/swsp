@@ -12,10 +12,6 @@ Name "SolidWorks Standard Primitives ${VERSION}"
 
 OutFile "${PROGNAME}-install-${VERSION}.exe"
 
-; Registry key to check for directory (so if you install again, it will 
-; overwrite the old one automatically)
-InstallDirRegKey HKLM "Software\spitfire_swsp" "Install_Dir"
-
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
@@ -24,11 +20,16 @@ RequestExecutionLevel admin
 ; Functions
 
 Function .onInit
+  ClearErrors
   ${If} ${RunningX64}
     SetRegView 64
+    ReadRegStr $INSTDIR HKLM SOFTWARE\spitfire_swsp "Install_Dir"
+    IfErrors 0 +2
     StrCpy $INSTDIR $PROGRAMFILES64\${PROGNAME}
   ${Else}
-    StrCpy $INSTDIR $PROGRAMFILES64\${PROGNAME}
+    ReadRegStr $INSTDIR HKLM SOFTWARE\spitfire_swsp "Install_Dir"
+    IfErrors 0 +2
+    StrCpy $INSTDIR $PROGRAMFILES\${PROGNAME}
   ${EndIf}
 FunctionEnd
 
