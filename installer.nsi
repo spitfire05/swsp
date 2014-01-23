@@ -3,7 +3,7 @@
 !include MUI2.nsh
 
 !define PROGNAME "swsp"
-!define VERSION "1.0.1"
+!define VERSION "1.1.0"
 
 ;--------------------------------
 
@@ -75,7 +75,9 @@ Section "Install"
   
   ; Register with SolidWorks
   ${If} ${RunningX64}
-    ExecWait '"$WINDIR\Microsoft.NET\Framework64\v2.0.50727\RegAsm.exe" "-codebase" "$INSTDIR\swsp.dll"' $0
+    ; If 64bit, register with both 32 and 64
+    ExecWait '"$WINDIR\Microsoft.NET\Framework64\v2.0.50727\RegAsm.exe" "-codebase" "$INSTDIR\swsp.dll"'
+    ExecWait '"$WINDIR\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe" "-codebase" "$INSTDIR\swsp.dll"'
   ${Else}
     ExecWait '"$WINDIR\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe" "-codebase" "$INSTDIR\swsp.dll"'
   ${EndIf}
@@ -108,7 +110,8 @@ Section "Uninstall"
   
   ; Un-register with SolidWorks
   ${If} ${RunningX64}
-    ExecWait '"$WINDIR\Microsoft.NET\Framework64\v2.0.50727\RegAsm.exe" "-unregister" "$INSTDIR\swsp.dll"' $0
+    ExecWait '"$WINDIR\Microsoft.NET\Framework64\v2.0.50727\RegAsm.exe" "-unregister" "$INSTDIR\swsp.dll"'
+    ExecWait '"$WINDIR\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe" "-unregister" "$INSTDIR\swsp.dll"'
   ${Else}
     ExecWait '"$WINDIR\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe" "-unregister" "$INSTDIR\swsp.dll"'
   ${EndIf}

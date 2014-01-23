@@ -61,6 +61,24 @@ namespace swsp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Circle sketch.
+        /// </summary>
+        internal static string CircleSketch {
+            get {
+                return ResourceManager.GetString("CircleSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hexagon sketch.
         /// </summary>
         internal static string HexagonSketch {
@@ -79,11 +97,29 @@ namespace swsp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rectangle sketch.
+        /// </summary>
+        internal static string RectangleSketch {
+            get {
+                return ResourceManager.GetString("RectangleSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to T-profile sketch (closed).
         /// </summary>
         internal static string TProfileSketchClosed {
             get {
                 return ResourceManager.GetString("TProfileSketchClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates.
+        /// </summary>
+        internal static string UpdateCheck {
+            get {
+                return ResourceManager.GetString("UpdateCheck", resourceCulture);
             }
         }
         

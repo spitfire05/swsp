@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,28 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CircleSketch" xml:space="preserve">
-    <value>Szkic okręgu</value>
-  </data>
-  <data name="HexagonSketch" xml:space="preserve">
-    <value>Szkic sześciokąta</value>
-  </data>
-  <data name="LProfileSketch" xml:space="preserve">
-    <value>Szkic kątownika</value>
-  </data>
-  <data name="TProfileSketchClosed" xml:space="preserve">
-    <value>Szkic teownika (zamknięty profil)</value>
-  </data>
-  <data name="UpdateCheck" xml:space="preserve">
-    <value>Sprawdź aktualizacje</value>
-  </data>
-  <data name="UProfileSketch" xml:space="preserve">
-    <value>Szkic ceownika</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>Informacje</value>
-  </data>
-  <data name="RectangleSketch" xml:space="preserve">
-    <value>Szkic prostokątu</value>
-  </data>
 </root>

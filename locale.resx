@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CircleSketch" xml:space="preserve">
+    <value>Circle sketch</value>
+  </data>
   <data name="HexagonSketch" xml:space="preserve">
     <value>Hexagon sketch</value>
   </data>
@@ -126,7 +129,16 @@
   <data name="TProfileSketchClosed" xml:space="preserve">
     <value>T-profile sketch (closed)</value>
   </data>
+  <data name="UpdateCheck" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
   <data name="UProfileSketch" xml:space="preserve">
     <value>U-profile sketch</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="RectangleSketch" xml:space="preserve">
+    <value>Rectangle sketch</value>
   </data>
 </root>

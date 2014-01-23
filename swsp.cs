@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using SolidWorks.Interop.swpublished;
+using UpdateChecker;
 
 namespace swsp
 {
@@ -14,6 +15,10 @@ namespace swsp
     {
         public SldWorks swApp;
         private int swCookie;
+
+        public SWIntegration()
+        {
+        }
 
         public bool ConnectToSW(object ThisSW, int Cookie)
         {
@@ -33,11 +38,14 @@ namespace swsp
         {
             try
             {
+                // Set current UI locale to user settings, not windows language version
+                locale.Culture = Thread.CurrentThread.CurrentCulture;
+                
+                // For debug
+                //locale.Culture = new System.Globalization.CultureInfo("en");
+
                 // Clean up first
                 this.UITeardown();
-
-                // Set current UI locale to user settings, not windows language version
-                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
                 // Build the UI
                 Assembly thisAssembly = System.Reflection.Assembly.GetAssembly(this.GetType());
@@ -46,12 +54,12 @@ namespace swsp
                 string Title = "Standard Primitives";
                 string ToolTip = "Standard primitives";
                 int[] docTypes = { (int)swDocumentTypes_e.swDocPART };
-                cmdGroup = iCmdMgr.CreateCommandGroup(1, Title, ToolTip, "", -1);
+                cmdGroup = iCmdMgr.CreateCommandGroup(9934, Title, ToolTip, "", -1);
                 // Set up icon list files
                 cmdGroup.LargeIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
                 cmdGroup.SmallIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
                 // we store index of every button to use later
-                int[] cmdIdx = new int[4];
+                int[] cmdIdx = new int[8];
                 string t;
                 t = locale.LProfileSketch;
                 cmdIdx[0] = cmdGroup.AddCommandItem2(t, -1, "", t, 0, "L_ProfileSketch", "", 0, (int)swCommandItemType_e.swToolbarItem);
@@ -61,6 +69,14 @@ namespace swsp
                 cmdIdx[2] = cmdGroup.AddCommandItem2(t, -1, "", t, 3, "T_ProfileClosedSketch", "", 2, (int)swCommandItemType_e.swToolbarItem);
                 t = locale.HexagonSketch;
                 cmdIdx[3] = cmdGroup.AddCommandItem2(t, -1, "", t, 4, "HexagonSketch", "", 3, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.CircleSketch;
+                cmdIdx[4] = cmdGroup.AddCommandItem2(t, -1, "", t, 5, "CircleSketch", "", 4, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.UpdateCheck;
+                cmdIdx[5] = cmdGroup.AddCommandItem2(t, -1, "", t, 6, "UpdateCheck", "", 5, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.About;
+                cmdIdx[6] = cmdGroup.AddCommandItem2(t, -1, "", t, 7, "AboutForm", "", 6, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.RectangleSketch;
+                cmdIdx[7] = cmdGroup.AddCommandItem2(t, -1, "", t, 8, "RectangleSketch", "", 7, (int)swCommandItemType_e.swToolbarItem);
                 cmdGroup.HasToolbar = true;
                 cmdGroup.HasMenu = false;
                 cmdGroup.Activate();
@@ -77,17 +93,31 @@ namespace swsp
                     TextType1[1] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     // Group 2
                     CommandTabBox cmdBox2 = cmdTab.AddCommandTabBox();
-                    int[] cmdIDs2 = new int[2];
-                    int[] TextType2 = new int[2];
+                    int[] cmdIDs2 = new int[4];
+                    int[] TextType2 = new int[4];
                     cmdIDs2[0] = cmdGroup.get_CommandID(cmdIdx[2]);
                     TextType2[0] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     cmdIDs2[1] = cmdGroup.get_CommandID(cmdIdx[3]);
                     TextType2[1] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    cmdIDs2[2] = cmdGroup.get_CommandID(cmdIdx[4]);
+                    TextType2[2] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    cmdIDs2[3] = cmdGroup.get_CommandID(cmdIdx[7]);
+                    TextType2[3] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    // Group 3
+                    CommandTabBox cmdBox3 = cmdTab.AddCommandTabBox();
+                    int[] cmdIDs3 = new int[2];
+                    int[] TextType3 = new int[2];
+                    cmdIDs3[0] = cmdGroup.get_CommandID(cmdIdx[5]);
+                    TextType3[0] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    cmdIDs3[1] = cmdGroup.get_CommandID(cmdIdx[6]);
+                    TextType3[1] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     // Add the commands
                     cmdBox1.AddCommands(cmdIDs1, TextType1);
                     cmdBox2.AddCommands(cmdIDs2, TextType2);
+                    cmdBox3.AddCommands(cmdIDs3, TextType3);
                     // Add separators
                     cmdTab.AddSeparator(cmdBox2, cmdIDs2[0]);
+                    cmdTab.AddSeparator(cmdBox3, cmdIDs3[0]);
                 }
             }
             catch (Exception e)
@@ -105,11 +135,23 @@ namespace swsp
             {
                 iCmdMgr.RemoveCommandTab((CommandTab)cmdTab);
             }
+            iCmdMgr.RemoveCommandGroup2(9934, false);
         }
 
         private string GetAssemblyLocation()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(System.Reflection.Assembly.GetExecutingAssembly().Location.LastIndexOf(@"\"));
+        }
+
+        public void UpdateCheck()
+        {
+            UpdateChecker.UpdateChecker.start("http://traal.eu/swsp/update.xml", "SolidWorks Standard Primitives", "swsp", false);
+        }
+
+        public void AboutForm()
+        {
+            Form af = new About();
+            af.ShowDialog();
         }
 
         public void L_ProfileSketch()
@@ -129,6 +171,7 @@ namespace swsp
             // Exit sketch
             swDoc.ClearSelection2(true);
             swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
         }
 
         public void U_ProfileSketch()
@@ -171,6 +214,7 @@ namespace swsp
             // Exit sketch
             swDoc.ClearSelection2(true);
             swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
         }
 
         public void U_ProfileFlangeSketch()
@@ -209,6 +253,7 @@ namespace swsp
             // Exit sketch
             swDoc.ClearSelection2(true);
             swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
         }
 
         public void T_ProfileClosedSketch()
@@ -258,6 +303,7 @@ namespace swsp
             // Exit sketch
             swDoc.ClearSelection2(true);
             swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
         }
 
         public void HexagonSketch()
@@ -291,6 +337,39 @@ namespace swsp
                 }
             }
             swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
+        }
+
+        public void CircleSketch()
+        {
+            ModelDoc2 swDoc = (ModelDoc2)swApp.ActiveDoc;
+            // Create sketch
+            swDoc.SketchManager.InsertSketch(false);
+            SketchSegment circle;
+            circle = (SketchSegment)swDoc.SketchManager.CreateCircle(0.0, 0.0, 0.0, 0.05, 0.0, 0.0);
+            circle.Select4(false, null);
+            swDoc.AddDimension2(0.075, 0.075, 0.0);
+            swDoc.ClearSelection2(true);
+            swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
+        }
+
+        public void RectangleSketch()
+        {
+            ModelDoc2 swDoc = (ModelDoc2)swApp.ActiveDoc;
+            // Create sketch
+            swDoc.SketchManager.InsertSketch(false);
+            object[] rectangle;
+            rectangle = (object[])swDoc.SketchManager.CreateCenterRectangle(0.0, 0.0, 0.0, 0.05, 0.025, 0.0);
+            SketchSegment l1, l2;
+            l1 = (SketchSegment)rectangle[0];
+            l2 = (SketchSegment)rectangle[1];
+            l1.Select4(false, null);
+            swDoc.AddDimension2(0.0, 0.075, 0.0);
+            l2.Select4(false, null);
+            swDoc.AddDimension2(0.075, 0.0125, 0.0);
+            swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
         }
 
         #region COM
