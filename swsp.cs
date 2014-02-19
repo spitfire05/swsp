@@ -56,7 +56,7 @@ namespace swsp
                 int[] docTypes = { (int)swDocumentTypes_e.swDocPART };
                 cmdGroup = iCmdMgr.CreateCommandGroup(9934, Title, ToolTip, "", -1);
                 // Set up icon list files
-                cmdGroup.LargeIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
+                cmdGroup.LargeIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_24.png");
                 cmdGroup.SmallIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
                 // we store index of every button to use later
                 int[] cmdIdx = new int[10];
@@ -404,10 +404,10 @@ namespace swsp
             swDoc.AddDimension2(0.025, -0.05, 0.0);
             swDoc.ClearSelection2(true);
             l2.Select4(false, null);
-            swDoc.AddDimension2(0.0625, 0.05, 0.0);
+            swDoc.AddDimension2(0.0625, 0.075, 0.0);
             swDoc.ClearSelection2(true);
             l3.Select4(false, null);
-            swDoc.AddDimension2(0.1, 0.0, 0.0);
+            swDoc.AddDimension2(0.1, 0.025, 0.0);
             swDoc.ClearSelection2(true);
             l0.Select4(false, null);
             origin.Select4(true, null);

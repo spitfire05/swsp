@@ -75,6 +75,9 @@
     <Content Include="icons\icons_16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="icons\icons_24.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MessageBox.vbs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
