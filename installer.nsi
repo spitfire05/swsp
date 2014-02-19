@@ -1,6 +1,7 @@
 !include x64.nsh
 !include LogicLib.nsh
 !include MUI2.nsh
+!include nsProcess.nsh
 
 !define PROGNAME "swsp"
 !define VERSION "1.2.0"
@@ -20,6 +21,12 @@ RequestExecutionLevel admin
 ; Functions
 
 Function .onInit
+  ${nsProcess::FindProcess} "SLDWORKS.exe" $R0
+  StrCmp $R0 0 0 notRunning
+    MessageBox MB_OK|MB_ICONEXCLAMATION "SolidWorks is running. Please close it and restart this installer." /SD IDOK
+    Abort
+  ${nsProcess::Unload}
+  notRunning:
   ClearErrors
   ${If} ${RunningX64}
     SetRegView 64
