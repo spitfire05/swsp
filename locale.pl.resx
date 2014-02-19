@@ -141,4 +141,10 @@
   <data name="RectangleSketch" xml:space="preserve">
     <value>Szkic prostokątu</value>
   </data>
+  <data name="RectangleWithRevolveAxisSketch" xml:space="preserve">
+    <value>Szkic prostokątu z osią obrotu</value>
+  </data>
+  <data name="CircleWithRevolveAxisSketch" xml:space="preserve">
+    <value>Szkic okręgu z osią obrotu</value>
+  </data>
 </root>
