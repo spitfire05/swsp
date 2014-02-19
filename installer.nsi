@@ -71,6 +71,7 @@ Section "Install"
   File "readme.md"
   CreateDirectory $INSTDIR\icons
   File /oname=icons\icons_16.png "bin\Release\icons\icons_16.png"
+  File /oname=icons\icons_24.png "bin\Release\icons\icons_24.png"
   
   ; Register with SolidWorks
   ${If} ${RunningX64}
@@ -122,6 +123,7 @@ Section "Uninstall"
   Delete "$INSTDIR\SolidWorks.Interop.swpublished.dll"
   Delete "$INSTDIR\readme.md"
   Delete "$INSTDIR\icons\icons_16.png"
+  Delete "$INSTDIR\icons\icons_24.png"
   Delete $INSTDIR\uninstall.exe
 
   ; Remove directories used
