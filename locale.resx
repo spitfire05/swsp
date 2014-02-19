@@ -141,4 +141,10 @@
   <data name="RectangleSketch" xml:space="preserve">
     <value>Rectangle sketch</value>
   </data>
+  <data name="RectangleWithRevolveAxisSketch" xml:space="preserve">
+    <value>Rectangle with revolve axis</value>
+  </data>
+  <data name="CircleWithRevolveAxisSketch" xml:space="preserve">
+    <value>Circle with revolve axis</value>
+  </data>
 </root>

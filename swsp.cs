@@ -59,7 +59,7 @@ namespace swsp
                 cmdGroup.LargeIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
                 cmdGroup.SmallIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
                 // we store index of every button to use later
-                int[] cmdIdx = new int[8];
+                int[] cmdIdx = new int[10];
                 string t;
                 t = locale.LProfileSketch;
                 cmdIdx[0] = cmdGroup.AddCommandItem2(t, -1, "", t, 0, "L_ProfileSketch", "", 0, (int)swCommandItemType_e.swToolbarItem);
@@ -77,6 +77,10 @@ namespace swsp
                 cmdIdx[6] = cmdGroup.AddCommandItem2(t, -1, "", t, 7, "AboutForm", "", 6, (int)swCommandItemType_e.swToolbarItem);
                 t = locale.RectangleSketch;
                 cmdIdx[7] = cmdGroup.AddCommandItem2(t, -1, "", t, 8, "RectangleSketch", "", 7, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.RectangleWithRevolveAxisSketch;
+                cmdIdx[8] = cmdGroup.AddCommandItem2(t, -1, "", t, 9, "RectangleWithRevolveAxisSketch", "", 8, (int)swCommandItemType_e.swToolbarItem);
+                t = locale.CircleWithRevolveAxisSketch;
+                cmdIdx[9] = cmdGroup.AddCommandItem2(t, -1, "", t, 10, "CircleWithRevolveAxisSketch", "", 9, (int)swCommandItemType_e.swToolbarItem);
                 cmdGroup.HasToolbar = true;
                 cmdGroup.HasMenu = false;
                 cmdGroup.Activate();
@@ -93,8 +97,8 @@ namespace swsp
                     TextType1[1] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     // Group 2
                     CommandTabBox cmdBox2 = cmdTab.AddCommandTabBox();
-                    int[] cmdIDs2 = new int[4];
-                    int[] TextType2 = new int[4];
+                    int[] cmdIDs2 = new int[6];
+                    int[] TextType2 = new int[6];
                     cmdIDs2[0] = cmdGroup.get_CommandID(cmdIdx[2]);
                     TextType2[0] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     cmdIDs2[1] = cmdGroup.get_CommandID(cmdIdx[3]);
@@ -103,6 +107,10 @@ namespace swsp
                     TextType2[2] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     cmdIDs2[3] = cmdGroup.get_CommandID(cmdIdx[7]);
                     TextType2[3] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    cmdIDs2[4] = cmdGroup.get_CommandID(cmdIdx[8]);
+                    TextType2[4] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
+                    cmdIDs2[5] = cmdGroup.get_CommandID(cmdIdx[9]);
+                    TextType2[5] = (int)swCommandTabButtonTextDisplay_e.swCommandTabButton_TextHorizontal;
                     // Group 3
                     CommandTabBox cmdBox3 = cmdTab.AddCommandTabBox();
                     int[] cmdIDs3 = new int[2];
@@ -368,6 +376,76 @@ namespace swsp
             swDoc.AddDimension2(0.0, 0.075, 0.0);
             l2.Select4(false, null);
             swDoc.AddDimension2(0.075, 0.0125, 0.0);
+            swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
+        }
+
+        public void RectangleWithRevolveAxisSketch()
+        {
+            ModelDoc2 swDoc = (ModelDoc2)swApp.ActiveDoc;
+            // Create sketch
+            swDoc.SketchManager.InsertSketch(false);
+            SketchSegment axis, l0, l1, l2, l3;
+            object[] rectangle;
+            SketchPoint origin;
+            // Add the origin point
+            origin = swDoc.SketchManager.CreatePoint(0.0, 0.0, 0.0);
+            origin.Select4(false, null);
+            swDoc.SketchAddConstraints("sgFIXED");
+            axis = swDoc.SketchManager.CreateLine(0.0, 0.0, 0.0, 0.0, 0.05, 0.0);
+            axis.ConstructionGeometry = true;
+            rectangle = (object[])swDoc.SketchManager.CreateCornerRectangle(0.05, 0.0, 0.0, 0.075, 0.05, 0.0);
+            l0 = (SketchSegment)rectangle[0];
+            l1 = (SketchSegment)rectangle[1];
+            l2 = (SketchSegment)rectangle[2];
+            l3 = (SketchSegment)rectangle[3];
+            axis.Select4(false, null);
+            l1.Select4(true, null);
+            swDoc.AddDimension2(0.025, -0.05, 0.0);
+            swDoc.ClearSelection2(true);
+            l2.Select4(false, null);
+            swDoc.AddDimension2(0.0625, 0.05, 0.0);
+            swDoc.ClearSelection2(true);
+            l3.Select4(false, null);
+            swDoc.AddDimension2(0.1, 0.0, 0.0);
+            swDoc.ClearSelection2(true);
+            l0.Select4(false, null);
+            origin.Select4(true, null);
+            swDoc.SketchAddConstraints("sgCOINCIDENT");
+            swDoc.ClearSelection2(true);
+            swDoc.SketchManager.InsertSketch(true);
+            swDoc.ViewZoomtofit2();
+        }
+
+        public void CircleWithRevolveAxisSketch()
+        {
+            ModelDoc2 swDoc = (ModelDoc2)swApp.ActiveDoc;
+            // Create sketch
+            swDoc.SketchManager.InsertSketch(false);
+            SketchSegment axis, circle;
+            SketchPoint origin, c_origin;
+            // Add the origin point
+            origin = swDoc.SketchManager.CreatePoint(0.0, 0.0, 0.0);
+            origin.Select4(false, null);
+            swDoc.SketchAddConstraints("sgFIXED");
+            swDoc.ClearSelection2(true);
+            axis = swDoc.SketchManager.CreateLine(0.0, 0.0, 0.0, 0.0, 0.05, 0.0);
+            axis.ConstructionGeometry = true;
+            c_origin = swDoc.SketchManager.CreatePoint(0.05, 0.0, 0.0);
+            c_origin.Select4(false, null);
+            origin.Select4(true, null);
+            swDoc.SketchAddConstraints("sgHORIZONTALPOINTS2D");
+            circle = swDoc.SketchManager.CreateCircleByRadius(0.05, 0.0, 0.0, 0.025);
+            axis.Select4(false, null);
+            circle.Select4(true, null);
+            swDoc.ClearSelection2(true);
+            circle.Select4(false, null);
+            origin.Select4(true, null);
+            swDoc.AddDimension2(0.025, 0.05, 0.0);
+            swDoc.ClearSelection2(true);
+            circle.Select4(false, null);
+            swDoc.AddDimension2(0.075, 0.05, 0.0);
+            swDoc.ClearSelection2(true);
             swDoc.SketchManager.InsertSketch(true);
             swDoc.ViewZoomtofit2();
         }

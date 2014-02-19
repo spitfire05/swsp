@@ -1,3 +1,7 @@
+# 1.2.0
+
+* Add sketch macros with revolve axis: rectangle, circle.
+
 # 1.1.0
 
 * Add Polish localization.

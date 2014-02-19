@@ -79,6 +79,15 @@ namespace swsp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Circle with revolve axis.
+        /// </summary>
+        internal static string CircleWithRevolveAxisSketch {
+            get {
+                return ResourceManager.GetString("CircleWithRevolveAxisSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hexagon sketch.
         /// </summary>
         internal static string HexagonSketch {
@@ -102,6 +111,15 @@ namespace swsp {
         internal static string RectangleSketch {
             get {
                 return ResourceManager.GetString("RectangleSketch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rectangle with revolve axis.
+        /// </summary>
+        internal static string RectangleWithRevolveAxisSketch {
+            get {
+                return ResourceManager.GetString("RectangleWithRevolveAxisSketch", resourceCulture);
             }
         }
         
