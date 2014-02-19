@@ -15,6 +15,7 @@ namespace swsp
     {
         public SldWorks swApp;
         private int swCookie;
+        private int ID = 1200;
 
         public SWIntegration()
         {
@@ -54,7 +55,7 @@ namespace swsp
                 string Title = "Standard Primitives";
                 string ToolTip = "Standard primitives";
                 int[] docTypes = { (int)swDocumentTypes_e.swDocPART };
-                cmdGroup = iCmdMgr.CreateCommandGroup(9934, Title, ToolTip, "", -1);
+                cmdGroup = iCmdMgr.CreateCommandGroup(this.ID, Title, ToolTip, "", -1);
                 // Set up icon list files
                 cmdGroup.LargeIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_24.png");
                 cmdGroup.SmallIconList = Path.Combine(GetAssemblyLocation(), @"icons\icons_16.png");
@@ -143,7 +144,7 @@ namespace swsp
             {
                 iCmdMgr.RemoveCommandTab((CommandTab)cmdTab);
             }
-            iCmdMgr.RemoveCommandGroup2(9934, false);
+            iCmdMgr.RemoveCommandGroup2(this.ID, false);
         }
 
         private string GetAssemblyLocation()

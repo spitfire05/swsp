@@ -71,7 +71,6 @@
     <Compile Include="UpdateChecker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="changelog.txt" />
     <Content Include="icons\icons_16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -81,9 +80,9 @@
     <Content Include="MessageBox.vbs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="install_32.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
