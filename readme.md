@@ -5,6 +5,8 @@
 After installation a tab labeled "Standard Primitives"
 should appear in the Command Manager, while in the part mode.
 
+![](http://traal.eu/swsp/swsp.JPG)
+
 ## What it can do?
 
 **swsp** is a set of few standard primitive macros, aimed at shortening the time required to
