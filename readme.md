@@ -25,7 +25,7 @@ Currently, the addin contains following sketch macros:
 
 ## Requirements
 
-SWSP requires [.NET 3.5 Framework[(http://www.microsoft.com/en-us/download/details.aspx?id=21)
+SWSP requires [.NET 3.5 Framework](http://www.microsoft.com/en-us/download/details.aspx?id=21)
 to run, and, obviously, [SolidWorks](http://www.solidworks.com/).
 The tool was developed & tested with SolidWorks 2013 & 2014.
 
