@@ -36,10 +36,6 @@ which will install the addin for you.
 
 Remember to restart SolidWorks after installation is complete!
 
-## Web page
-
-http://traal.eu/swsp/
-
 ## Changelog
 
 ### 1.2.0
