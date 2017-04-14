@@ -1,5 +1,7 @@
 # swsp - SolidWorks Standard Primitives
 
+[![Build status](https://ci.appveyor.com/api/projects/status/kjh5jo8yupe5lay1?svg=true)](https://ci.appveyor.com/project/spitfire05/swsp)
+
 ## Usage
 
 After installation a tab labeled "Standard Primitives"
